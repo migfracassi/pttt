@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu RPG | Miguel</title>
+<meta name="description" content="O universo de RPG de Miguel no Roblox: ajudando artistas e criando empresas de ingressos como Ticoord, Cord, Show Ticket, Ingresse e Tickora.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFF8EF;
+    --bg-card:#FFFFFF;
+    --ink:#211A15;
+    --ink-soft:#6B5F55;
+    --violet:#8B5CF6;
+    --violet-deep:#6D3FD1;
+    --violet-pale:#EEE4FF;
+    --green:#8FCB5E;
+    --pink:#FF8FB2;
+    --red:#EE1B1B;
+    --blurple:#5865F2;
+    --whats:#25D366;
+    --line:rgba(33,26,21,0.12);
+    --display:'Baloo 2', sans-serif;
+    --body:'Nunito', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px;}
+  .blob{ position:absolute; border-radius:50%; z-index:0; }
+
+  header.nav{
+    position:sticky; top:0; z-index:60;
+    background:rgba(255,248,239,0.9);
+    backdrop-filter:blur(10px);
+    border-bottom:2px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1040px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 24px;
+  }
+  .brand{ font-family:var(--display); font-weight:800; font-size:20px; display:flex; align-items:center; gap:8px; }
+  .brand .dot{ color:var(--violet); }
+  .back-link{
+    font-family:var(--display); font-weight:700; font-size:13px;
+    background:var(--bg-card); border:2px solid var(--ink); border-radius:100px;
+    padding:8px 16px;
+  }
+
+  .btn{
+    font-family:var(--display); font-weight:700; font-size:15px;
+    padding:13px 24px; border-radius:100px;
+    display:inline-flex; align-items:center; gap:8px;
+    border:2.5px solid var(--ink);
+    box-shadow:4px 4px 0 var(--ink);
+    transition:transform .15s ease, box-shadow .15s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{ transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--ink); }
+  .btn:active{ transform:translate(0,0); box-shadow:1px 1px 0 var(--ink); }
+  .btn-violet{ background:var(--violet); color:#fff; }
+  .btn-outline{ background:var(--bg-card); color:var(--ink); }
+  .btn-blurple{ background:var(--blurple); color:#fff; }
+  .btn-sm{ padding:9px 16px; font-size:13px; box-shadow:2px 2px 0 var(--ink); }
+
+  /* hero */
+  .hero{ position:relative; padding:80px 0 50px; }
+  .hero .blob-a{ width:380px; height:380px; background:var(--violet-pale); opacity:.9; top:-110px; right:-130px; }
+  .hero .blob-b{ width:220px; height:220px; background:var(--green); opacity:.25; bottom:-40px; left:-90px; }
+  .hero-inner{ position:relative; z-index:1; max-width:640px; }
+  .kicker{
+    font-family:var(--display); font-weight:700; font-size:13px;
+    text-transform:uppercase; letter-spacing:0.04em; color:var(--violet-deep);
+    margin-bottom:10px;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .kicker::before{ content:''; }
+  h1{ font-family:var(--display); font-weight:800; font-size:clamp(32px,5.4vw,54px); line-height:1.08; }
+  .hero-sub{ margin-top:16px; font-size:16.5px; color:var(--ink-soft); font-weight:600; }
+  .hero-actions{ margin-top:26px; display:flex; gap:14px; flex-wrap:wrap; }
+
+  .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1;transform:none;transition:none;} html{scroll-behavior:auto;} }
+
+  section{ padding:70px 0; }
+  h2.title{ font-family:var(--display); font-weight:800; font-size:clamp(26px,3.8vw,38px); margin-bottom:16px; max-width:600px; }
+  p.lead{ font-size:15.5px; color:var(--ink-soft); font-weight:600; max-width:620px; }
+
+  /* sobre - cards com passos */
+  .about-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:34px; }
+  @media (max-width:820px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-card{
+    background:var(--bg-card); border:3px solid var(--ink); border-radius:20px;
+    padding:24px; box-shadow:5px 5px 0 var(--ink);
+  }
+  .about-card .emoji{ font-size:26px; margin-bottom:10px; display:block; }
+  .about-card h3{ font-family:var(--display); font-size:17px; margin-bottom:6px; }
+  .about-card p{ font-size:13.5px; color:var(--ink-soft); font-weight:600; }
+
+  /* empresas grid */
+  .empresas-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:36px; }
+  @media (max-width:900px){ .empresas-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:600px){ .empresas-grid{ grid-template-columns:1fr; } }
+
+  .empresa-card{
+    background:var(--bg-card); border:3px solid var(--ink); border-radius:20px;
+    padding:24px; box-shadow:5px 5px 0 var(--ink);
+    display:flex; flex-direction:column; gap:12px;
+    transition:transform .2s ease;
+  }
+  .empresa-card:hover{ transform:translateY(-4px); }
+  .empresa-logo{
+    width:56px; height:56px; border-radius:16px; border:3px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--display); font-weight:800; font-size:20px; color:#fff;
+    overflow:hidden;
+  }
+  .empresa-logo img{ width:100%; height:100%; object-fit:cover; }
+  .empresa-card h3{ font-family:var(--display); font-size:19px; }
+  .empresa-card p{ font-size:13.5px; color:var(--ink-soft); font-weight:600; flex:1; }
+  .empresa-tag{
+    font-family:var(--display); font-weight:700; font-size:11px;
+    padding:4px 12px; border-radius:100px; border:2px solid var(--ink);
+    align-self:flex-start;
+  }
+  .tag-live{ background:#D9F2C4; }
+  .tag-rp{ background:#EEE4FF; }
+  .fillme{
+    background:#FFE8B0; padding:1px 6px; border-radius:5px; font-weight:700; color:#6B4E00;
+  }
+  .empresa-card .empresa-actions{ margin-top:4px; }
+
+  .join-band{
+    background:var(--violet);
+    border-top:3px solid var(--ink);
+    border-bottom:3px solid var(--ink);
+    color:#fff;
+  }
+  .join-inner{ display:flex; align-items:center; justify-content:space-between; gap:26px; flex-wrap:wrap; }
+  .join-inner h2{ color:#fff; }
+  .join-inner .kicker{ color:#EDE1FF; }
+  .join-inner p.lead{ color:#F1E9FF; }
+  .join-actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:22px; }
+
+  footer{ padding:36px 0; text-align:center; font-family:var(--display); font-weight:600; font-size:12px; color:var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">migg<span class="dot">.</span></div>
+    <a class="back-link" href="index.html">← voltar ao site</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+  <div class="wrap hero-inner reveal in">
+    <div class="kicker">meu universo dentro do roblox</div>
+    <h1>Ajudo artistas e crio empresas de ingressos no meu RPG</h1>
+    <p class="hero-sub">Dentro do Roblox eu vivo um RPG onde ajudo artistas a organizarem seus eventos e crio empresas de tickets pra isso — Ticoord, Cord, Show Ticket, Ingresse, Tickora e outras que ainda estão saindo do papel.</p>
+    <div class="hero-actions">
+      <a class="btn btn-violet" href="#empresas">ver minhas empresas ↓</a>
+      <a class="btn btn-outline" href="ingresse.html">conhecer o Ingresse →</a>
+    </div>
+  </div>
+</section>
+
+<section id="sobre-rpg">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">como funciona</div>
+      <h2 class="title">Um RPG de empreendedorismo dentro do Roblox</h2>
+      <p class="lead">Não é só jogar — é construir. Ajudo artistas do Roblox a venderem ingressos pros shows e eventos deles, e por trás disso vou criando marcas e empresas próprias dentro desse universo.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <span class="emoji"></span>
+        <h3>Ajudo artistas</h3>
+        <p>Apoio criadores e artistas do Roblox na parte de ingressos e organização dos eventos deles.</p>
+      </div>
+      <div class="about-card reveal">
+        <span class="emoji"></span>
+        <h3>Crio empresas</h3>
+        <p>Cada empresa é uma marca própria dentro do RPG, com identidade e proposta diferente.</p>
+      </div>
+      <div class="about-card reveal">
+        <span class="emoji"></span>
+        <h3>Sempre expandindo</h3>
+        <p>O universo cresce com o tempo — sempre tem empresa nova saindo do papel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="empresas">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">minhas empresas</div>
+      <h2 class="title">As marcas que já criei nesse universo</h2>
+      <p class="lead">Cada uma com seu próprio estilo — algumas já viraram projeto de verdade, outras ainda vivem só dentro do RPG.</p>
+    </div>
+
+    <div class="empresas-grid">
+
+      <div class="empresa-card reveal">
+        <div class="empresa-logo"><img src="ingresse.png" alt="Logo Ingresse"></div>
+        <h3>Ingresse</h3>
+        <span class="empresa-tag tag-live">Roleplay</span>
+        <p>Minha primeira empresa a sair do RPG pro mundo real, ingressos com tema Roblox, com site próprio já publicado.</p>
+        <div class="empresa-actions">
+          <a class="btn btn-sm btn-outline" href="ingresse.html">conhecer →</a>
+        </div>
+      </div>
+
+      <div class="empresa-card reveal">
+        <div class="empresa-logo"><img src="ticord.png" alt="Logo Ticord"></div>
+        <h3>Ticord</h3>
+        <span class="empresa-tag tag-rp">Roleplay</span>
+        <p><span class="fillme">A gente realiza, cria e faz!</span> — coordenação de empresas no Roblox.</p>
+      </div>
+
+      <div class="empresa-card reveal">
+        <div class="empresa-logo"><img src="cord.png" alt="Logo Cord"></div>
+        <h3>Cord</h3>
+        <span class="empresa-tag tag-live">Roleplay</span>
+        <p><span class="fillme">Empresa de desenvolvimento de bots</span>, conectando artistas e público dentro do RPG.</p>
+      </div>
+
+      <div class="empresa-card reveal">
+        <div class="empresa-logo"><img src="showticket.png" alt="Logo Show Ticket"></div>
+        <h3>Show Ticket</h3>
+        <span class="empresa-tag tag-laranja">Roleplay</span>
+        <p><span class="fillme">Site de criação de Ingressos e vendas</span> — focada em ingressos pra shows dentro do Roblox.</p>
+      </div>
+
+      <div class="empresa-card reveal">
+        <div class="empresa-logo"><img src="tickora.png" alt="Logo Tickora"></div>
+        <h3>Tickora</h3>
+        <span class="empresa-tag tag-rp">Roleplay</span>
+        <p><span class="fillme">Site de criação de Ingressos e vendas</span> — esse projeto se encerra, em breve.</p>
+      </div>
+
+      <div class="empresa-card reveal" style="align-items:center; justify-content:center; text-align:center;">
+        <span style="font-size:32px;"></span>
+        <h3>e mais por vir...</h3>
+        <p>Sempre tem empresa nova nascendo dentro desse RPG — essa página cresce junto.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="join-band">
+  <div class="wrap join-inner">
+    <div class="reveal">
+      <div class="kicker">quer fazer parte?</div>
+      <h2 class="title">Acompanhe esse universo de perto</h2>
+      <p class="lead">Todo esse RPG e essas empresas rolam de perto no meu servidor do Discord — é lá que tudo acontece primeiro.</p>
+      <div class="join-actions">
+        <a class="btn btn-outline" href="https://discord.com/migg" target="_blank" rel="noopener">entrar no discord →</a>
+        <a class="btn btn-outline" href="https://wa.me/19999894031" target="_blank" rel="noopener">falar comigo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Miguel — dev de bots & sites · meu RPG no Roblox
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
